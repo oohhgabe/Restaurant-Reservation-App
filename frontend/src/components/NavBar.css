@@ -1,0 +1,29 @@
+.navbar {
+  width: 100%;
+  height: 75px;
+  background: maroon;
+}
+
+.links {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 20px;
+  font-size: 25px;
+}
+
+.navbar a:hover {
+  border-bottom: 3px solid white;
+}
+
+.navbar a.active {
+  border-bottom: 3px solid white;
+}
