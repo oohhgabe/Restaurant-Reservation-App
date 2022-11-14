@@ -49,29 +49,28 @@ input {
 }
 input:focus {
   outline: none;
-  box-shadow: 0px 0px 12px 0.8px rgb(192, 227, 228);
-
+  box-shadow: 0px 0px 12px 0.8px hsl(182, 40%, 75%);
 }
 .footer {
   margin-top: 3em;
 }
-input[type=button],
-input[type=submit].special {
+input[type="button"],
+input[type="submit"].special {
   font-size: 21px;
   font-family: sans-serif;
   padding: 5px 20px;
   border: 0;
-  background-color: rgb(192, 227, 228);
+  background-color: hsl(182, 40%, 75%);
   color: #ffffff;
   border-radius: 15px;
   transition: all 250ms ease-in-out;
   cursor: pointer;
 }
-input[type=button],
-input[type=submit].special:hover {
-  background-color: hsl(183, 29%, 76%);
+input[type="button"],
+input[type="submit"].special:hover {
+  background-color: hsl(182, 40%, 80%);
 }
-input[type=button],
-input[type=submit].special:focus {
+input[type="button"],
+input[type="submit"].special:focus {
   outline: none;
 }

@@ -1,3 +1,47 @@
-.home{
-
+.home {
+  position: relative;
+  width: 100%;
+}
+.home img {
+  padding: 0;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: 100%;
+}
+.home .reservation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-130%, 100%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: hsl(182, 40%, 75%);
+  color: #fff;
+  font-size: 1.8rem;
+  padding: 5px 20px;
+  border: 0;
+  border-radius: 15px;
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+}
+.home .register {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(25%, 100%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: hsl(182, 40%, 75%);
+  color: #fff;
+  font-size: 1.8rem;
+  padding: 5px 20px;
+  border: 0;
+  border-radius: 15px;
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+}
+.home .register:hover,
+.reservation:hover {
+  background-color: hsl(182, 40%, 80%);
 }
