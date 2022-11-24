@@ -20,6 +20,12 @@
   font-size: 25px;
 }
 
+.button {
+  background-color: silver;
+  border-radius: 10px;
+
+}
+
 .navbar a:hover {
   border-bottom: 3px solid white;
 }

@@ -30,23 +30,7 @@ function Register({props}){
         });
       }
         const value = {details};
-        /*
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(value)
-        };
-
-        const response = await fetch('http://localhost:5000/register', options);
-        const result = await response.json();
-        if (result.message)
-            setError(result.message)
-        else
-            navigate('/AccountCreated');
-    }
-        */
+        
     return (
         <div className="base-container">
             <div className="header"></div>
@@ -124,4 +108,5 @@ function Register({props}){
 
     )
 }
+
 export default Register;

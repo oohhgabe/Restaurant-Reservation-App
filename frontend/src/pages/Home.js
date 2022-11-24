@@ -15,6 +15,7 @@ function Home() {
     event.preventDefault();
     navigate("/register");
   };
+
   return (
     <div className="home">
       <img src={HomeImage} alt="backgroundImage" />

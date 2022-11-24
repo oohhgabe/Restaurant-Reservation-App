@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
 }
+
 .home img {
   padding: 0;
   display: block;
@@ -11,6 +12,7 @@
   height: auto;
   width: 100%;
 }
+
 .home .reservation {
   position: absolute;
   top: 50%;
@@ -26,6 +28,7 @@
   transition: all 250ms ease-in-out;
   cursor: pointer;
 }
+
 .home .register {
   position: absolute;
   top: 50%;
@@ -41,6 +44,7 @@
   transition: all 250ms ease-in-out;
   cursor: pointer;
 }
+
 .home .register:hover,
 .reservation:hover {
   background-color: hsl(182, 40%, 80%);
