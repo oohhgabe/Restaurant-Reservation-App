@@ -42,6 +42,8 @@ function Register({props}){
                         <input
                             type="text"
                             name="fname"
+                            placeholder= "First Name"
+                            required
                             value={setDetails.firstName}
                             onChange={handleChange}
                         />
@@ -51,42 +53,52 @@ function Register({props}){
                         <input
                             type="text"
                             name="lname"
+                            placeholder="Last Name"
+                            required
                             value={setDetails.lastName}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label className="special" htmlFor="fname">Phone Number</label>
+                        <label className="special" htmlFor="phonenumber">Phone Number</label>
                         <input
                             type="text"
-                            name="fname"
-                            value={setDetails.firstName}
+                            name="phonenumber"
+                            placeholder="Phone Number"
+                            required
+                            value={setDetails.phoneNumber}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label className="special" htmlFor="fname">Mailing Address</label>
+                        <label className="special" htmlFor="mailingaddress">Mailing Address</label>
                         <input
                             type="text"
-                            name="fname"
-                            value={setDetails.firstName}
+                            name="mailingaddress"
+                            placeholder="Mailing Address"
+                            required
+                            value={setDetails.mailingAddress}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label className="special" htmlFor="fname">Billing Address</label>
+                        <label className="special" htmlFor="billingaddress">Billing Address</label>
                         <input
                             type="text"
-                            name="fname"
-                            value={setDetails.firstName}
+                            name="billingaddress"
+                            placeholder="Billing Address"
+                            required
+                            value={setDetails.billingAddress}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
                         <label className="special" htmlFor="email">Email</label>
                         <input
-                            type="text"
+                            type="email"
                             name="email"
+                            placeholder="Email"
+                            required
                             value={setDetails.email}
                             onChange={handleChange}
                         />
@@ -96,6 +108,9 @@ function Register({props}){
                         <input
                             type="password"
                             name="password"
+                            placeholder="Password"
+                            required
+                            minLength="8"
                             value={setDetails.password}
                             onChange={handleChange}
                         />

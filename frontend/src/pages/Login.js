@@ -26,25 +26,29 @@ function Login({props}){
 
     return (
         <div className="base-container">
-            <div className="header"></div>
             <div className="content">
                 <form onSubmit={handleSubmit}>
                 <div className="form">
                     <div className="form-group">
-                        <label className="special" htmlFor="fname">Email</label>
+                        <label className="special" htmlFor="email">Email</label>
                         <input
-                            type="text"
-                            name="fname"
-                            value={setDetails.firstName}
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            required
+                            value={setDetails.email}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label className="special" htmlFor="lname">Password</label>
+                        <label className="special" htmlFor="password">Password</label>
                         <input
-                            type="text"
-                            name="lname"
-                            value={setDetails.lastName}
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            required
+                            minLength="8"
+                            value={setDetails.password}
                             onChange={handleChange}
                         />
                     </div>

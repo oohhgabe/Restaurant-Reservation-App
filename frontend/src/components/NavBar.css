@@ -1,15 +1,15 @@
 .navbar {
   width: 100%;
   height: 55px;
-  background: hsl(182, 40%, 75%);
+  background: rgb(100, 1, 1);
 }
 
 .links {
   width: 100%;
   height: 100%;
+  float: left;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items:center;
   color: white;
 }
 
@@ -18,12 +18,6 @@
   text-decoration: none;
   margin: 20px;
   font-size: 25px;
-}
-
-.button {
-  background-color: silver;
-  border-radius: 10px;
-
 }
 
 .navbar a:hover {
