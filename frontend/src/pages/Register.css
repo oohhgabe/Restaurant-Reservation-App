@@ -90,3 +90,14 @@ input[type="submit"].reroute {
   transition: all 250ms ease-in-out;
   cursor: pointer;
 }
+
+input[type="button"],
+input[type="submit"].reroute {
+  font-size: 20px;
+  font-family: sans-serif;
+  background-color: maroon;
+  color: white;
+  border-radius: 15px;
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+}
