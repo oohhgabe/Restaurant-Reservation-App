@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom"
 import { useForm } from 'react-hook-form';
-import { Link } from "react-router-dom";
 import "./Register.css"
 
 function Register({props}) {
-    let navigate = useNavigate();
 
     const [details, setDetails] = useState({
         firstName: null,
@@ -19,52 +17,24 @@ function Register({props}) {
         points: null,
         payment: null,
     })
+    
+    const [complete, setComplete] = useState(false)
+    const navigate = useNavigate();
 
-   let timerID = useRef(null);
+    const { register, handleSubmit } = useForm({
+        reValidateMode: 'onSubmit',
+      });
 
-    useEffect(() => {
-        return () => {
-            clearTimeout(timerID);
-        }
-    },[]);
-
-    const resetForm = () => {
-        setDetails({
-            firstName: null,
-            lastName: null,
-            phoneNumber: null,
-            mailingAddress: null,
-            billingAddress: null,
-            email: null,
-            password: null,
-            dinerNumber: null,
-            points: null,
-            payment: null,
-        });
-    }
-
-    // const { register, handleSubmit } = useForm({
-    //     reValidateMode: 'onSubmit',
-    //     validationSchema: registerSchema,
-    //   });
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setDetails({
-            email: details.email,
-            password: details.password
-        });
-      }
 
     const handleChange = (event) => {
         setDetails({...details, [event.target.name]: event.target.value});
     }
     
     const onSubmit = (data) => {
-        setDetails(data)
-        console.log(details)
-        timerID = setTimeout(resetForm, 5000);
-        
+        setDetails(data);
+        console.log(details);
+        setComplete(true)
+        //navigate('/login');
       }
       
     const value = {details};
@@ -72,6 +42,7 @@ function Register({props}) {
     return (
         <div className="base-container">
             <div className="header"></div>
+            {complete ===false && (
             <div className="content">
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form">
@@ -159,8 +130,16 @@ function Register({props}) {
                 <input type="submit" className="special" value="Sign Up"></input>
                 </form>
             </div>
+            )}
+            {complete === true && (
+                <div className="header">
+                    <label className = "special">
+                    Your account has been created.
+                    </label>
+                    <Link to="/login" className = "special">Login</Link>
+                    </div>
+            )}
         </div>
-
     )
 }
 
