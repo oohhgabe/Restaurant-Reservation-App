@@ -1,26 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom"
+import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
 import "./Register.css"
-function Register({props}){
+
+function Register({props}) {
     let navigate = useNavigate();
+
     const [details, setDetails] = useState({
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        mailingAddress: "",
-        billingAddress: "",
-        email: "",
-        password: "",
+        firstName: null,
+        lastName: null,
+        phoneNumber: null,
+        mailingAddress: null,
+        billingAddress: null,
+        email: null,
+        password: null,
         dinerNumber: null,
         points: null,
         payment: null,
     })
 
-    const [error, setError] = useState("");
+   let timerID = useRef(null);
 
-    const handleChange = (event) => {
-        setDetails({...details, [event.target.name]: event.target.value});
+    useEffect(() => {
+        return () => {
+            clearTimeout(timerID);
+        }
+    },[]);
+
+    const resetForm = () => {
+        setDetails({
+            firstName: null,
+            lastName: null,
+            phoneNumber: null,
+            mailingAddress: null,
+            billingAddress: null,
+            email: null,
+            password: null,
+            dinerNumber: null,
+            points: null,
+            payment: null,
+        });
     }
+
+    // const { register, handleSubmit } = useForm({
+    //     reValidateMode: 'onSubmit',
+    //     validationSchema: registerSchema,
+    //   });
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -29,30 +55,43 @@ function Register({props}){
             password: details.password
         });
       }
-        const value = {details};
+
+    const handleChange = (event) => {
+        setDetails({...details, [event.target.name]: event.target.value});
+    }
+    
+    const onSubmit = (data) => {
+        setDetails(data)
+        console.log(details)
+        timerID = setTimeout(resetForm, 5000);
+        
+      }
+      
+    const value = {details};
         
     return (
         <div className="base-container">
             <div className="header"></div>
             <div className="content">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form">
                     <div className="form-group">
-                        <label className="special" htmlFor="fname">First Name</label>
+                        <label className="special" htmlFor="firstName">First Name</label>
                         <input
                             type="text"
-                            name="fname"
-                            placeholder= "First Name"
+                            name="firstName"
+                            placeholder="First Name"
                             required
                             value={setDetails.firstName}
                             onChange={handleChange}
                         />
                     </div>
+                    
                     <div className="form-group">
-                        <label className="special" htmlFor="lname">Last Name</label>
+                        <label className="special" htmlFor="lastName">Last Name</label>
                         <input
                             type="text"
-                            name="lname"
+                            name="lastName"
                             placeholder="Last Name"
                             required
                             value={setDetails.lastName}
@@ -60,21 +99,22 @@ function Register({props}){
                         />
                     </div>
                     <div className="form-group">
-                        <label className="special" htmlFor="phonenumber">Phone Number</label>
+                        <label className="special" htmlFor="phoneNumber">Phone Number</label>
                         <input
-                            type="text"
-                            name="phonenumber"
+                            type="number"
+                            name="phoneNumber"
                             placeholder="Phone Number"
                             required
+                            minLength={10}
                             value={setDetails.phoneNumber}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label className="special" htmlFor="mailingaddress">Mailing Address</label>
+                        <label className="special" htmlFor="mailingAddress">Mailing Address</label>
                         <input
                             type="text"
-                            name="mailingaddress"
+                            name="mailingAddress"
                             placeholder="Mailing Address"
                             required
                             value={setDetails.mailingAddress}
@@ -82,10 +122,10 @@ function Register({props}){
                         />
                     </div>
                     <div className="form-group">
-                        <label className="special" htmlFor="billingaddress">Billing Address</label>
+                        <label className="special" htmlFor="billingAddress">Billing Address</label>
                         <input
                             type="text"
-                            name="billingaddress"
+                            name="billingAddress"
                             placeholder="Billing Address"
                             required
                             value={setDetails.billingAddress}
@@ -110,13 +150,13 @@ function Register({props}){
                             name="password"
                             placeholder="Password"
                             required
-                            minLength="8"
+                            minLength={8}
                             value={setDetails.password}
                             onChange={handleChange}
                         />
                     </div>
                 </div>
-                <input type="submit" className="special" value="REGISTER"/>
+                <input type="submit" className="special" value="Sign Up"></input>
                 </form>
             </div>
         </div>

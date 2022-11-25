@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
-import "./Login.css"
 
 function Login({props}){
     let navigate = useNavigate();
     const [details, setDetails] = useState({
-        email: "",
-        password: "",
+        email: null,
+        password: null,
     })
 
     const [error, setError] = useState("");
@@ -22,7 +21,8 @@ function Login({props}){
             password: details.password
         });
       }
-        const value = {details};
+    
+    const value = {details};
 
     return (
         <div className="base-container">

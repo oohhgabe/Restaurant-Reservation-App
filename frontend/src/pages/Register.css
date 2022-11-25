@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .header {
   font-size: 25px;
   font-weight: bold;
@@ -66,23 +70,11 @@ input:focus {
 
 input[type="button"],
 input[type="submit"].special {
-  font-size: 21px;
+  font-size: 20px;
   font-family: sans-serif;
-  padding: 5px 20px;
-  border: 0;
-  background-color: hsl(182, 40%, 75%);
-  color: #ffffff;
+  background-color: maroon;
+  color: white;
   border-radius: 15px;
   transition: all 250ms ease-in-out;
   cursor: pointer;
-}
-
-input[type="button"],
-input[type="submit"].special:hover {
-  background-color: hsl(182, 40%, 80%);
-}
-
-input[type="button"],
-input[type="submit"].special:focus {
-  outline: none;
 }
