@@ -34,7 +34,6 @@ function Register({props}) {
         setDetails(data);
         console.log(details);
         setComplete(true)
-        //navigate('/login');
       }
       
     const value = {details};
@@ -134,9 +133,21 @@ function Register({props}) {
             {complete === true && (
                 <div className="header">
                     <label className = "special">
-                    Your account has been created.
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                    Your account has been successfully created.
                     </label>
-                    <Link to="/login" className = "special">Login</Link>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <input type="submit" className="reroute" value="Login"></input>
                     </div>
             )}
         </div>
