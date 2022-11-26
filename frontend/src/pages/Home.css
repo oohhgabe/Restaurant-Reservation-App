@@ -21,7 +21,7 @@ html {
 
 input[type="button"],
 input[type="submit"].homebutton {
-  position:fixed;
+  position: absolute;
   font-size: 20px;
   font-family: sans-serif;
   background-color: hsl(0, 100%, 25%);
