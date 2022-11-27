@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Reserve from "./pages/Reserve";
 import Register from "./pages/Register";
+import Message from "./pages/Message";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
+          <Route path="/message" element={<Message />} />
           <Route path="/" exact element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reserve" element={<Reserve />} />

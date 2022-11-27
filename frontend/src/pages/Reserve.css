@@ -1,0 +1,41 @@
+.reserve-form {
+  margin-top: 4em;
+  align-items: center;
+  font-family: sans-serif;
+}
+label.reserve {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 1px;
+}
+.basic-single {
+  width: 100px;
+}
+.form-group-left {
+  display: inline-block;
+  width: fit-content;
+  font-weight: 400;
+  padding-right: 50px;
+}
+.form-group-middle {
+  display: inline-block;
+  width: fit-content;
+  font-weight: 400;
+  padding-left: 50px;
+}
+.form-group-right {
+  display: inline-block;
+  width: fit-content;
+  font-weight: 400;
+  padding-left: 50px;
+}
+input[type="submit"].reserve {
+  font-size: 20px;
+  font-family: sans-serif;
+  background-color: maroon;
+  color: white;
+  border-radius: 15px;
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+  margin-top: 20rem;
+}

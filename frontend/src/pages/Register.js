@@ -27,6 +27,7 @@ function Register({ props }) {
     setDetails(data);
     console.log(details);
     setComplete(true);
+    navigate("/message", { state: { message: "Continue to Login" } });
   };
 
   const value = { details };
@@ -77,7 +78,6 @@ function Register({ props }) {
                   minLength={12}
                   maxLength={12}
                   pattern="[0-9]{3} [0-9]{3} [0-9]{4}"
-
                   value={setDetails.phoneNumber}
                   onChange={handleChange}
                 />

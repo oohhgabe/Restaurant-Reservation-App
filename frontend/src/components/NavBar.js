@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
 function NavBar() {
-
   return (
     <div className="navbar">
       <div className="links">
@@ -14,7 +13,7 @@ function NavBar() {
         <NavLink to="/login">Login</NavLink>
         <NavLink to="/register">Register</NavLink>
       </div>
-    </div> 
+    </div>
   );
 }
 

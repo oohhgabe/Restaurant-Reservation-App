@@ -1,0 +1,22 @@
+.message-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #53565a;
+}
+.message {
+  width: 100%;
+  max-width: 480px;
+  background-color: #fff;
+  padding: 15px 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.message h1 {
+  color: #888;
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
