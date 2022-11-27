@@ -19,6 +19,21 @@ html {
   color: white;
 }
 
+input[type="button"],
+input[type="submit"].homebutton {
+  position: absolute;
+  font-size: 20px;
+  font-family: sans-serif;
+  background-color: hsl(0, 100%, 25%);
+  color: white;
+  border-radius: 20px;
+  transition: all 250ms ease-in-out;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .centered {
   position: absolute;
   font-size: 65px;
@@ -27,4 +42,9 @@ html {
   top: 33%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+input[type=submit].homebutton:hover
+ {
+  background-color: hsl(0, 100%, 35%);
 }

@@ -73,11 +73,11 @@ function Register({ props }) {
                 <input
                   type="tel"
                   name="phoneNumber"
-                  placeholder="123 456 7890"
+                  placeholder="1234567890"
                   required
-                  minLength={12}
-                  maxLength={12}
-                  pattern="[0-9]{3} [0-9]{3} [0-9]{4}"
+                  minLength={10}
+                  maxLength={10}
+                  pattern="[0-9]{10}"
                   value={setDetails.phoneNumber}
                   onChange={handleChange}
                 />
