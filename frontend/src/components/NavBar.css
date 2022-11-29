@@ -17,17 +17,17 @@
   align-items: center;
 }
 
-.navbar a {
+.navbar .links a {
   color: white;
   text-decoration: none;
   margin: 15px;
   font-size: 22px;
 }
 
-.navbar a:hover {
+.navbar .links a:hover {
   border-bottom: 1px solid white;
 }
 
-.navbar a.active {
+.navbar .links a.active {
   border-bottom: 3px solid white;
 }

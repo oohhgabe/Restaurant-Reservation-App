@@ -4,9 +4,10 @@ html {
 
 .header {
   font-size: 25px;
-  font-weight: bold;
+  font-weight: 700;
   color: black;
   align-items: end;
+  margin-top: 1.5rem;
 }
 
 .base-container {
@@ -39,11 +40,11 @@ html {
 
 label {
   font-size: 19px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 label.special {
-  font-size: 25px;
+  font-size: 20px;
   margin-bottom: 1px;
 }
 
@@ -78,31 +79,9 @@ input[type="submit"].special {
   border-radius: 15px;
   transition: all 250ms ease-in-out;
   cursor: pointer;
+  margin-top: 1rem;
 }
 
-input[type=submit].special:hover
- {
+input[type="submit"].special:hover {
   background-color: hsl(0, 100%, 29%);
-}
-
-input[type="button"],
-input[type="submit"].reroute {
-  font-size: 20px;
-  font-family: sans-serif;
-  background-color: maroon;
-  color: white;
-  border-radius: 15px;
-  transition: all 250ms ease-in-out;
-  cursor: pointer;
-}
-
-input[type="button"],
-input[type="submit"].reroute {
-  font-size: 20px;
-  font-family: sans-serif;
-  background-color: maroon;
-  color: white;
-  border-radius: 15px;
-  transition: all 250ms ease-in-out;
-  cursor: pointer;
 }

@@ -2,13 +2,18 @@ import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Reserve.css";
 
 function Reserve() {
   let navigate = useNavigate();
+
   const [partySize, setPartySize] = useState(2);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [details, setDetails] = useState({});
 
   const options = [
     { value: 1, label: "1" },
@@ -37,10 +42,11 @@ function Reserve() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    navigate("/message", { state: { message: "Continue Reservation" } });
+    navigate("/register");
   };
   return (
     <div className="reserve">
+      <div className="header">Reserve a table</div>
       <form onSubmit={handleSubmit}>
         <div className="reserve-form">
           <div className="form-group-left">
@@ -62,7 +68,9 @@ function Reserve() {
               Date
             </label>
             <DatePicker
+              placeholderText="Please select a date"
               selected={selectedDate}
+              name="date"
               onChange={setSelectedDate}
               minDate={new Date()}
               required
@@ -73,10 +81,14 @@ function Reserve() {
               Time
             </label>
             <DatePicker
-              selected={selectedDate}
-              onChange={setSelectedDate}
+              selected={selectedTime}
+              onChange={setSelectedTime}
+              placeholderText="Please select a time"
+              name="time"
               showTimeSelect
               showTimeSelectOnly
+              minTime={setHours(setMinutes(new Date(), 0), 11)}
+              maxTime={setHours(setMinutes(new Date(), 0), 23)}
               timeIntervals={30}
               timeCaption="Time"
               dateFormat="h:mm aa"

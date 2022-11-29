@@ -1,7 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
 
-function Login({ props }) {
+const StyledLink = styled(Link)`
+  margin-top: 3rem;
+  color: maroon;
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+  &:hover {
+    color: black;
+  }
+`;
+const Error = styled.h2`
+  color: red;
+  font-size: 12px;
+  align-items: center;
+`;
+
+function Login() {
   let navigate = useNavigate();
   const [details, setDetails] = useState({
     email: null,
@@ -20,7 +40,9 @@ function Login({ props }) {
       email: details.email,
       password: details.password,
     });
-    navigate("/message", { state: { message: "Successfully Logged In!" } });
+    navigate("/message", {
+      state: { message: "Successfully Logged in!", path: "Home" },
+    });
   };
 
   const value = { details };
@@ -28,6 +50,7 @@ function Login({ props }) {
   return (
     <div className="base-container">
       <div className="content">
+        <div className="header">Login</div>
         <form onSubmit={handleSubmit}>
           <div className="form">
             <div className="form-group">
@@ -57,6 +80,8 @@ function Login({ props }) {
                 onChange={handleChange}
               />
             </div>
+            {error != "" ? <Error>{error}</Error> : ""}
+            <StyledLink to="/register">Create an account</StyledLink>
           </div>
           <input type="submit" className="special" value="Log In" />
         </form>
