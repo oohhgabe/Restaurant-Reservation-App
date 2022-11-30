@@ -42,7 +42,7 @@ function Reserve() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    navigate("/register");
+    navigate("/reserveForm");
   };
   return (
     <div className="reserve">
