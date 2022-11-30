@@ -13,16 +13,13 @@ function Register() {
   const [error, setError] = useState("");
 
   const [details, setDetails] = useState({
-    firstName: null,
-    lastName: null,
-    phoneNumber: null,
-    mailingAddress: null,
-    billingAddress: null,
-    email: null,
-    password: null,
-    dinerNumber: null,
-    points: null,
-    payment: null,
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    mailingAddress: "",
+    billingAddress: "",
+    email: "",
+    password: "",
   });
 
   const navigate = useNavigate();
@@ -31,9 +28,31 @@ function Register() {
     setDetails({ ...details, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (data) => {
-    setDetails(data);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setDetails({
+      firstName: details.firstName,
+      lastName: details.lastName,
+      phoneNumber: details.phoneNumber,
+      mailingAddress: details.mailingAddress,
+      billingAddress: details.billingAddress,
+      email: details.email,
+      password: details.password,
+    });
+
+    const value = { details };
     console.log(details);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(value),
+    };
+
+    const response = await fetch("http://localhost:5000/register", options);
+    const result = await response.json();
+    console.log(result);
     navigate("/message", {
       state: { message: "Successfully created an account!", path: "Login" },
     });
