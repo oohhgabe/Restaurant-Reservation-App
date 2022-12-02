@@ -38,6 +38,13 @@ html {
   font-weight: 400;
 }
 
+.form-group-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: fit-content;
+  font-weight: 400;
+}
 label {
   font-size: 19px;
   font-weight: 600;
@@ -46,6 +53,13 @@ label {
 label.special {
   font-size: 20px;
   margin-bottom: 1px;
+}
+
+label.sameMailing {
+  font-size: 15px;
+  font-weight: 400;
+  margin-left: -250px;
+  margin-top: 10px;
 }
 
 input {

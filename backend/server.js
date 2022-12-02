@@ -1,5 +1,7 @@
 import express from "express";
 import registerRoute from "./routes/register.route.js";
+import loginRoute from "./routes/login.route.js";
+
 const app = express();
 app.use(express.static("public"));
 
@@ -24,3 +26,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", registerRoute);
+app.use("/", loginRoute);

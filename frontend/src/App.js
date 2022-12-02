@@ -1,5 +1,6 @@
 import "./App.css";
 import NavBar from "./components/NavBar";
+import NavLayout from "./components/NavLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Reserve from "./pages/Reserve";
@@ -12,14 +13,15 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <NavBar />
         <Routes>
           <Route path="/message" element={<Message />} />
           <Route path="/reserveForm" element={<ReservationForm />} />
-          <Route path="/" exact element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/reserve" element={<Reserve />} />
-          <Route path="/register" element={<Register />} />
+          <Route element={<NavLayout />}>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/reserve" element={<Reserve />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
         </Routes>
       </Router>
     </div>

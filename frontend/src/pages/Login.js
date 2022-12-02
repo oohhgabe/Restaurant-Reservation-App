@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../AuthProvider";
 
 const StyledLink = styled(Link)`
   margin-top: 3rem;
@@ -22,10 +23,11 @@ const Error = styled.h2`
 `;
 
 function Login() {
-  let navigate = useNavigate();
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
   const [details, setDetails] = useState({
-    email: null,
-    password: null,
+    email: "",
+    password: "",
   });
 
   const [error, setError] = useState("");
@@ -40,12 +42,28 @@ function Login() {
       email: details.email,
       password: details.password,
     });
-    navigate("/message", {
-      state: { message: "Successfully Logged in!", path: "Home" },
-    });
-  };
 
-  const value = { details };
+    const value = { details };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(value),
+    };
+
+    const response = await fetch("http://localhost:5000/login", options);
+    const result = await response.json();
+
+    if (result.message) setError(result.message);
+    else {
+      setAuth(true);
+      navigate("/message", {
+        state: { message: "Successfully Logged in!", path: "Home" },
+      });
+    }
+  };
 
   return (
     <div className="base-container">

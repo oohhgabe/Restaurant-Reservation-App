@@ -11,6 +11,7 @@ const Error = styled.h2`
 
 function Register() {
   const [error, setError] = useState("");
+  const [checked, setChecked] = useState(false);
 
   const [details, setDetails] = useState({
     firstName: "",
@@ -24,12 +25,21 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const handleChecked = () => {
+    setChecked(!checked);
+    if (checked) {
+      details.billingAddress = "";
+    } else details.billingAddress = details.mailingAddress;
+  };
+
   const handleChange = (event) => {
     setDetails({ ...details, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(checked);
+
     setDetails({
       firstName: details.firstName,
       lastName: details.lastName,
@@ -52,10 +62,12 @@ function Register() {
 
     const response = await fetch("http://localhost:5000/register", options);
     const result = await response.json();
-    console.log(result);
-    navigate("/message", {
-      state: { message: "Successfully created an account!", path: "Login" },
-    });
+
+    if (result.message) setError(result.message);
+    else
+      navigate("/message", {
+        state: { message: "Successfully created an account!", path: "Login" },
+      });
   };
 
   return (
@@ -129,9 +141,21 @@ function Register() {
                 name="billingAddress"
                 placeholder="Billing Address"
                 required
-                value={setDetails.billingAddress}
+                value={details.billingAddress}
                 onChange={handleChange}
               />
+            </div>
+            <div className="form-group-checkbox">
+              <input
+                type="checkbox"
+                id="sameMailing"
+                value="sameMailing"
+                checked={checked}
+                onChange={handleChecked}
+              />
+              <label className="sameMailing" for="sameMailing">
+                Same as mailing address
+              </label>
             </div>
             <div className="form-group">
               <label className="special" htmlFor="email">

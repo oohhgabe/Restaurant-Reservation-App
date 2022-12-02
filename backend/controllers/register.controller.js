@@ -1,23 +1,22 @@
-let details = [];
+import { addUser, selectUser } from "../configDB.js";
+import bcrypt from "bcrypt";
 
-const registerInfo = (req, res) => {
-  console.log("Received new user details!");
-  var newDetails = {
-    firstName: req.body.details.firstName,
-    lastName: req.body.details.lastName,
-    phoneNumber: req.body.details.phoneNumber,
-    mailingAddress: req.body.details.mailingAddress,
-    billingAddress: req.body.details.billingAddress,
-    email: req.body.details.email,
-    password: req.body.details.password,
-  };
-  details.push(newDetails);
-  console.log(details);
+const registerInfo = async (req, res) => {
+  if (req.body.details.email != "" && req.body.details.password != "") {
+    const result = await selectUser(req.body.details.email);
 
-  res.json({
-    status: "success",
-    Details: req.body,
-  });
+    if (result == "") {
+      let password = req.body.details.password;
+      const hashPassword = await bcrypt.hash(password, 10);
+      console.log("Hashed password: ", hashPassword);
+      const answer = await addUser(req.body.details, hashPassword);
+      res.send(answer);
+    } else {
+      return res.send({
+        message: "An account with that email already exists.",
+      });
+    }
+  }
 };
 
 export default registerInfo;

@@ -32,9 +32,7 @@ const createDatabase = () => {
 // Create User Table
 const createUserTable = () => {
   return new Promise((resolve, reject) => {
-    let createUserTableQuery =
-      `DROP TABLE IF EXISTS reservation.user;\n` +
-      `CREATE TABLE IF NOT EXISTS reservation.user (
+    let createUserTableQuery = `CREATE TABLE IF NOT EXISTS reservation.user (
       id INT NOT NULL AUTO_INCREMENT,
       email VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL,
@@ -89,26 +87,38 @@ try {
 } catch (error) {
   console.log(error);
 }
-// THIS IS HOW YOU CALL PROCEDURE
-/*
-let addUser = database.query(
-  "CALL reservation.addUser(?, ?, ?, ?, ?, ?, ?)",
-  [
-    "test@email.com",
-    "testing123",
-    "test",
-    "123",
-    "1234567890",
-    "112 random st",
-    "112 random st",
-  ],
-  function (err, result) {
-    if (err) {
-      console.log("Error: ", err);
-    } else {
-      console.log("Results: ", result);
-    }
-  }
-); */
+// Function to add user
+function addUser(user, password) {
+  return new Promise((resolve, reject) => {
+    let sql = "CALL reservation.addUser(?, ?, ?, ?, ?, ?, ?)";
+    let query = database.query(
+      sql,
+      [
+        user.email,
+        password,
+        user.firstName,
+        user.lastName,
+        user.phoneNumber,
+        user.mailingAddress,
+        user.billingAddress,
+      ],
+      (err, result) => {
+        if (err) return reject(err);
+        resolve(Object.values(JSON.parse(JSON.stringify(result))));
+      }
+    );
+  });
+}
 
-export default database;
+// Function to select certain user by email
+function selectUser(email) {
+  return new Promise((resolve, reject) => {
+    let sql = "SELECT * FROM reservation.user WHERE email = ?";
+    let query = database.query(sql, [email], (err, result) => {
+      if (err) return reject(err);
+      resolve(Object.values(JSON.parse(JSON.stringify(result))));
+    });
+  });
+}
+
+export { database, addUser, selectUser };
