@@ -15,12 +15,13 @@ function App() {
       <Router>
         <Routes>
           <Route path="/message" element={<Message />} />
-          <Route path="/reserveForm" element={<ReservationForm />} />
+
           <Route element={<NavLayout />}>
             <Route path="/" exact element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/reserve" element={<Reserve />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/reserveForm" element={<ReservationForm />} />
           </Route>
         </Routes>
       </Router>

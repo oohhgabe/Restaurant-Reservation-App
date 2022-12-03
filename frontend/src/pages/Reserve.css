@@ -28,7 +28,6 @@ label.reserve {
   width: fit-content;
   font-weight: 400;
 }
-
 input[type="submit"].reserve {
   font-size: 20px;
   font-family: sans-serif;
@@ -38,4 +37,8 @@ input[type="submit"].reserve {
   transition: all 250ms ease-in-out;
   cursor: pointer;
   margin-top: 300px;
+}
+
+input[type="submit"].reserve:hover {
+  background-color: hsl(0, 100%, 29%);
 }
