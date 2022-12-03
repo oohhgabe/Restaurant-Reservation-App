@@ -44,7 +44,7 @@ function ReservationForm() {
 
   return (
     <div className="base-container">
-      <div className="header">Your reservation</div>
+      <div className="header">Your Reservation</div>
       <div className="content">
         <form onSubmit={handleSubmit}>
           <div className="form">
