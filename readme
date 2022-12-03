@@ -1,0 +1,15 @@
+Instructions for running build
+
+cd backend
+    npm install
+    npm run dev
+
+cd frontend
+    npm install
+    npm start
+
+Once on the website you can create account and use those login details or use admin account
+Username:   admin@gmail.com
+Pass:       test1234
+
+After you create your own account on the backend it'll store credentials into DB and hash the password
