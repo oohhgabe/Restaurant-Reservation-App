@@ -46,7 +46,7 @@ function Reserve() {
   };
   return (
     <div className="reserve">
-      <div className="header">Reserve a table</div>
+      <div className="header">Reserve a Table</div>
       <form onSubmit={handleSubmit}>
         <div className="reserve-form">
           <div className="form-group-left">
@@ -68,7 +68,6 @@ function Reserve() {
               Date
             </label>
             <DatePicker
-              placeholderText="Please select a date"
               selected={selectedDate}
               name="date"
               onChange={setSelectedDate}

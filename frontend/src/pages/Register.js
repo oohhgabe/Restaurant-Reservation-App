@@ -72,7 +72,7 @@ function Register() {
 
   return (
     <div className="base-container">
-      <div className="header">Create an account</div>
+      <div className="header">Create an Account</div>
       <div className="content">
         <form onSubmit={handleSubmit}>
           <div className="form">

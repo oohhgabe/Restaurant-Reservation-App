@@ -99,7 +99,7 @@ function Login() {
               />
             </div>
             {error != "" ? <Error>{error}</Error> : ""}
-            <StyledLink to="/register">Create an account</StyledLink>
+            <StyledLink to="/register">Create an Account</StyledLink>
           </div>
           <input type="submit" className="special" value="Log In" />
         </form>
