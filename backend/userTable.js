@@ -4,8 +4,6 @@ class userTable extends reservationDB {
   constructor() {
     // Calls parent constructor first
     super();
-    const dropsql = `DROP TABLE IF EXISTS user`;
-    this.run(dropsql);
     const sql = `CREATE TABLE IF NOT EXISTS user(
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       email varchar(255) not null, 
