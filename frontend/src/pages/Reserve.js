@@ -22,39 +22,19 @@ const Message = styled.h2`
   margin-top: 25px;
 `;
 
-const Button = styled.button`
-  border-radius: 4px;
-  background: maroon;
-  padding: 10px 22px;
-  color: white;
-  outline: none;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-  margin-top: 50px;
-  font-weight: bold;
-  font-size: 16px;
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background: hsl(0, 100%, 35%);
-    color: white;
-  }
-`;
+let totalTables = {
+  sits4: 5,
+  sits2: 5,
+};
 
 function Reserve() {
   let navigate = useNavigate();
 
   const holidays = ["11", "74", "10", "1224", "1225", "1231"];
-  let totalTables = {
-    sits4: 5,
-    sits2: 5,
-  };
 
+  const [available, setAvailable] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  const [available, setAvailable] = useState(false);
   const [partySize, setPartySize] = useState(2);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
@@ -87,69 +67,128 @@ function Reserve() {
     { value: 20, label: "20" },
   ];
 
-  const handleChange = (event) => {
-    setDetails({ ...details, [event.target.name]: event.target.value });
+  const handleParty = async (party) => {
+    details.party = party.value;
+    setPartySize(party.value);
+    await showTables();
+  };
+  const handleTime = async (time) => {
+    let hours = time.getHours();
+    let minutes = ("0" + time.getMinutes()).slice(-2);
+    let suffix = hours >= 12 ? "PM" : "AM";
+
+    let fixedTime = ((hours + 11) % 12) + 1 + ":" + minutes + " " + suffix;
+    details.time = fixedTime;
+
+    setSelectedTime(time);
+    await showTables();
+  };
+
+  const handleDate = async (date) => {
+    details.date = date;
+    let month = date.getUTCMonth() + 1;
+    let day = date.getUTCDate() - 1;
+    let result = "" + month + day;
+    totalTables.sits4 = 5;
+    totalTables.sits2 = 5;
+    setMessage("");
+    if (holidays.includes(result) || date.getDay() === 6 || date.getDay() === 0)
+      setError(
+        "Note you selected a high traffic day, which requires a $10 hold fee in case of a no-show."
+      );
+    else setError("");
+    setSelectedDate(date);
   };
 
   const showTables = async () => {
-    let size = partySize;
-    let count4 = 0;
-    let count2 = 0;
-    let totalCount = 0;
+    if (details.time === "") {
+      setError("Please select a time to view available tables.");
+      setAvailable(false);
+      return [0, 0];
+    } else setError("");
+
+    let date = details.date;
+    let month = date.getUTCMonth() + 1;
+    let day = date.getUTCDate() - 1;
+    let result = "" + month + day;
+    if (holidays.includes(result) || date.getDay() === 6 || date.getDay() === 0)
+      setError(
+        "Note you selected a high traffic day, which requires a $10 hold fee in case of a no-show."
+      );
+    else setError("");
+
+    let size = details.party;
+    let tablesOf4Used = 0;
+    let tablesOf2Used = 0;
     let tables4Available = totalTables.sits4;
     let tables2Available = totalTables.sits2;
-    console.log(totalTables.sits4);
-    while (4 <= size && tables4Available != 0) {
-      size -= 4;
-      tables4Available -= 1;
-      count4 += 1;
-    }
-    if (tables4Available == 0 || size < 4) {
-      while (2 <= size && tables2Available != 0) {
+
+    while (size > 0) {
+      if (tablesOf4Used < tables4Available && size >= 4) {
+        tablesOf4Used++;
+        size -= 4;
+      } else if (tablesOf2Used < tables2Available && size >= 2) {
+        tablesOf2Used++;
         size -= 2;
-        tables2Available -= 1;
-        count2 += 1;
+      } else if (tablesOf4Used > 0 && tablesOf2Used > 0 && size >= 2) {
+        tablesOf4Used--;
+        tablesOf2Used--;
+        size -= 6;
+      } else if (tablesOf2Used > 0 && size > 0) {
+        tablesOf2Used++;
+        size -= 2;
+      } else if (tablesOf4Used > 0 && size > 0) {
+        tablesOf4Used++;
+        size -= 4;
+      } else {
+        setMessage(
+          "Not enough tables are available. Please choose another day."
+        );
+        setAvailable(false);
+        return [0, 0];
       }
     }
-    if (count2 == 0 && count4 > 1) {
-      setMessage(
-        `${count4} tables that sit 4 were combined and are available.`
-      );
-    } else if (count2 == 0 && count4 == 1) {
-      setMessage(`${count4} table that sits 4 is available.`);
-    } else if (count4 == 0 && count2 > 1) {
-      setMessage(
-        `${count2} tables that sit 2 were combined and are available.`
-      );
-    } else if (count4 == 0 && count4 == 1) {
-      setMessage(`${count2} table that sits 2 is available.`);
-    } else if (count2 != 0 && count4 != 0) {
-      setMessage(
-        `${count2} table(s) of 2 and ${count4} table(s) of 4 were combined and are available.`
-      );
+
+    const usage = [];
+    if (tablesOf4Used > 0) {
+      usage.push(`${tablesOf4Used} table(s) of 4 were used`);
     }
-    totalTables.sits4 -= count4;
-    totalTables.sits2 -= count2;
-    console.log(totalTables.sits4);
-    if (totalTables.sits4 == 0 && totalTables.sits2 == 0) {
-      setMessage(`No tables available. Choose another day.`);
+    if (tablesOf2Used > 0) {
+      usage.push(`${tablesOf2Used} table(s) of 2 were used`);
+    }
+
+    if (tablesOf4Used > tables4Available || tablesOf2Used > tables2Available) {
+      setMessage("Not enough tables are available. Please choose another day.");
       setAvailable(false);
-    } else setAvailable(true);
+      return [0, 0];
+    }
+    if (usage.length > 1) setMessage(usage.join(" and "));
+    else setMessage(usage[0]);
+
+    setAvailable(true);
+    return [tablesOf2Used, tablesOf4Used];
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const [tablesOf2, tablesOf4] = await showTables();
+
+    totalTables.sits2 -= tablesOf2;
+    totalTables.sits4 -= tablesOf4;
 
     setDetails({
       party: partySize,
       date: selectedDate,
-      time: selectedTime,
     });
 
-    const value = { details };
-    console.log(value);
-
-    navigate("/reserveForm");
+    navigate("/reserveForm", {
+      state: {
+        message: `Party Size: ${details.party} Time: ${
+          details.time
+        } Date: ${details.date.toDateString()}`,
+        path: "Form",
+      },
+    });
   };
   return (
     <div className="reserve">
@@ -167,10 +206,7 @@ function Reserve() {
               isSearchable={true}
               name="party"
               options={options}
-              onChange={(party) => {
-                details.party = party.value;
-                setPartySize(party.value);
-              }}
+              onChange={handleParty}
             />
           </div>
           <div className="form-group-middle">
@@ -180,24 +216,7 @@ function Reserve() {
             <DatePicker
               selected={selectedDate}
               name="date"
-              onChange={(date) => {
-                details.date = date;
-                let month = date.getUTCMonth() + 1;
-                let day = date.getUTCDate() - 1;
-                let result = "" + month + day;
-                totalTables.sits4 = 5;
-                totalTables.sits2 = 5;
-                if (
-                  holidays.includes(result) ||
-                  date.getDay() == 6 ||
-                  date.getDay() == 0
-                )
-                  setError(
-                    "Note you selected a high traffic day, which requires a $10 hold fee in case of a no-show."
-                  );
-                else setError("");
-                setSelectedDate(date);
-              }}
+              onChange={handleDate}
               minDate={new Date()}
               required
             />
@@ -208,10 +227,7 @@ function Reserve() {
             </label>
             <DatePicker
               selected={selectedTime}
-              onChange={(time) => {
-                details.time = selectedTime;
-                setSelectedTime(time);
-              }}
+              onChange={handleTime}
               placeholderText="Please select a time"
               name="time"
               showTimeSelect
@@ -225,14 +241,16 @@ function Reserve() {
             />
           </div>
         </div>
-        {error != "" ? <Error>{error}</Error> : ""}
+        {error !== "" ? <Error>{error}</Error> : ""}
         <div className="table">
-          <Button onClick={showTables} disabled={true}>
-            Check Availability
-          </Button>
-          {message != "" ? <Message>{message}</Message> : ""}
+          {message !== "" ? <Message>{message}</Message> : ""}
         </div>
-        <input type="submit" className="reserve" value="Continue"></input>
+        <input
+          type="submit"
+          className="reserve"
+          value="Continue"
+          disabled={!available}
+        ></input>
       </form>
     </div>
   );

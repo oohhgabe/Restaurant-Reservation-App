@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Register.css";
 import styled from "styled-components";
 
@@ -20,6 +20,7 @@ function ReservationForm() {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (event) => {
     setDetails({ ...details, [event.target.name]: event.target.value });
@@ -34,7 +35,6 @@ function ReservationForm() {
       email: details.email,
     });
 
-    const value = { details };
     console.log(details);
 
     navigate("/message", {
@@ -45,6 +45,7 @@ function ReservationForm() {
   return (
     <div className="base-container">
       <div className="header">Your Reservation</div>
+      <h3>{location.state.message}</h3>
       <div className="content">
         <form onSubmit={handleSubmit}>
           <div className="form">
